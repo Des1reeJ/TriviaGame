@@ -1,12 +1,12 @@
-$(document).ready(function () {
-
     var correct = 0;
     var incorrect = 0;
     var answer = 0;
+    var unanswered = 0;
     var counter = 0;
     var wins = 0;
     var losses = 0;
     var totalScore = 0;
+
 
 
     //how to call a fxn once invoked
@@ -18,9 +18,11 @@ $(document).ready(function () {
         $("#header").append("<div id='panel'>Questionnaire</div>");
     }
 
-    $("button").on('click', function () {
+    $("#start").on('click', function () {
         newGame();
     })
+
+
 
     var questionArray = [{
         q: "In this classic diverse 90's sitcom, what was the real name of the character who later became one of the greatest comedians of all time?",
@@ -82,11 +84,36 @@ $(document).ready(function () {
     ]
 
     function checked() {
-    var selected = $("input[name='" + questionArray[0].divClass + "']:checked").val();
-    alert("You've selected " + selected);
-    }
+        for (i = 0; i < questionArray.length; i++) {
+            var selected = $("input[type='radio'][name='" + questionArray[i].divClass + "']:checked").val();
+            if (selected == questionArray[i].correct) { correct++ }
 
-  
+            else if (!$("input[type='radio'][name='" + questionArray[i].divClass + "']:checked").val()) { unanswered++ }
+
+            else {
+                incorrect++
+            }
+
+        }
+        $("#question1").text("");
+        $("#question1").append("correct: " + correct + " incorrect: " + incorrect + " Unanswered: " + unanswered);
+
+    }
+    $(document).ready(function () {
+        $('#question1').on('click', '#submit', function(){
+        checked();
+        console.log("checked, submit, correct, answered");
+    
+    })
+});
+    
+
+    // check if selected answer same as correct answer, increment ++ to correct ans variable
+    // if not, then going to increment correct answer variable, if not selected, going to increment unaswered variable.
+
+
+
+
 
 
 
@@ -94,8 +121,8 @@ $(document).ready(function () {
 
 
     setTimeout(function () {
-    checked();
-    }, 6000);
+        checked();
+    }, 60000);
 
 
     // call loadQuestion function outside of brackets, fxn and fxn name
@@ -105,14 +132,16 @@ $(document).ready(function () {
             $("#question1").append(questionArray[i].q);
             $("#question1").append("<br>");
             for (j = 0; j < 4; j++) {
-                $("#question1").append("<span class = 'answers ' > <input type= 'radio' name='" + questionArray[i].divClass + "'/> <label>" + questionArray[i].answer[j] + "<label></span>");
+                $("#question1").append("<span class = 'answers ' > <input type= 'radio' value='" + questionArray[i].answer[j] + "' name='" + questionArray[i].divClass + "'/> <label>" + questionArray[i].answer[j] + "<label></span>");
             }
             $("#question1").append("<br><hr>");
 
         }
+        $("#question1").append("<button id='submit'>Submit</button>");
+
 
     }
-
+    // outside of loop but inside 
     // when time is up, compare selected answer with correct ans. 
 
 
@@ -132,7 +161,6 @@ $(document).ready(function () {
 
 
 
-});
 
 
 
