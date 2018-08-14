@@ -1,7 +1,20 @@
-.answer span::before {
-    content: "\A";
+body {
+    background-image: url("https://data.whicdn.com/images/65804634/original.jpg");
+    text-align: left;
+    color: black;
+ }
+ #questions {
+     background-color: lightgreen;
+ }
 
+ #jumbotron {
+     background-color: darkblue;
+ }
+ 
+h1 {
+    font-size: 100px;
+    color: darkblue;
 }
-.jumbotron {
-    background-image: 
-};
+
+    
+
